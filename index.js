@@ -33,7 +33,7 @@ const io = new Server(server, {
 
 // Routes
 app.get('/', (req, res) => {
-  res.send("Hello World");
+  res.send("Get request received on server");
 });
 
 // Socket event handlers
