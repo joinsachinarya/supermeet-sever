@@ -1,13 +1,13 @@
-import express, { Request, Response } from "express";
-import http from "http";
-import dotenv from "dotenv";
-import cors from "cors";
-import { Server, Socket } from "socket.io";
+const express = require("express");
+const http = require("http");
+const dotenv = require("dotenv");
+const cors = require("cors");
+const { Server, Socket } = require("socket.io");
 
 dotenv.config();
 
 const PORT = parseInt(process.env.PORT || "5000", 10);
-const ALLOWED_ORIGINS = ["https://super-meet.vercel.app", "http://localhost:3000"];
+const ALLOWED_ORIGINS = "*";
 
 const app = express();
 const server = http.createServer(app);
