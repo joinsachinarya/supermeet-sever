@@ -7,7 +7,7 @@ const { Server, Socket } = require("socket.io");
 dotenv.config();
 
 const PORT = parseInt(process.env.PORT || "5000", 10);
-const ALLOWED_ORIGINS = "*";
+const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS || "http://localhost:3000";
 
 const app = express();
 const server = http.createServer(app);
@@ -15,6 +15,8 @@ const server = http.createServer(app);
 const corsOptions = {
   origin: ALLOWED_ORIGINS,
   credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
 app.use(cors(corsOptions));
 
@@ -22,7 +24,10 @@ const io = new Server(server, {
   cors: {
     origin: ALLOWED_ORIGINS,
     methods: ["GET", "POST"],
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
   },
+  transports: ['websocket', 'polling']
 });
 
 app.get("/", (req, res) => {
